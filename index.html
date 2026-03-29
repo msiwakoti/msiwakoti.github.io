@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mamta Siwakoti — Law, Privacy & Digital Governance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #111110;
+      --ink-mid:    #38382f;
+      --ink-soft:   #5e5e54;
+      --paper:      #f5f4f0;
+      --paper-warm: #eae7de;
+      --dark:       #1e1e1b;
+      --gold:       #a06c22;
+      --gold-lt:    #c28a3a;
+      --gold-bg:    rgba(160,108,34,0.08);
+      --teal:       #2a6e4f;
+      --teal-bg:    rgba(42,110,79,0.08);
+      --rule:       #d4d0c4;
+      --serif:      'Cormorant Garamond', Georgia, serif;
+      --sans:       'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 400;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.3rem 5vw;
+      background: rgba(245,244,240,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-name { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      background: var(--dark);
+      color: rgba(245,244,240,0.55);
+      font-size: 0.7rem;
+      text-align: center;
+      padding: 0.5rem 5vw;
+      letter-spacing: 0.06em;
+      line-height: 1.4;
+      margin-top: 3.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .disclaimer strong { color: rgba(245,244,240,0.8); font-weight: 500; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 92vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 6rem 5vw 8vh;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; right: 0; width: 45%; height: 100%;
+      background: var(--paper-warm);
+      clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+      z-index: 0;
+    }
+    .hero > * { position: relative; z-index: 1; }
+    .hero-label { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(3.5rem, 8vw, 7.5rem); font-weight: 300; line-height: 1.0; color: var(--ink); }
+    .hero h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub { margin-top: 2rem; max-width: 560px; font-size: 1rem; color: var(--ink-mid); line-height: 1.7; }
+    .hero-pillars { margin-top: 2rem; display: flex; gap: 2rem; flex-wrap: wrap; max-width: 560px; }
+    .pillar { border-left: 2px solid var(--gold); padding-left: 0.85rem; }
+    .pillar-label { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+    .pillar-desc { font-size: 0.8rem; color: var(--ink-mid); margin-top: 0.1rem; }
+    .hero-cert { margin-top: 1.75rem; }
+    .cert-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.45rem 1rem; border: 1.5px solid var(--teal);
+      color: var(--teal); font-size: 0.7rem; letter-spacing: 0.1em;
+      text-transform: uppercase; font-weight: 500;
+    }
+    .hero-scroll { margin-top: 3rem; display: flex; align-items: center; gap: 1rem; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
+    .hero-scroll::before { content: ''; display: block; width: 40px; height: 1px; background: var(--rule); }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 5vw; border-top: 1px solid var(--rule); }
+    .sec-head { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3.5rem; }
+    .sec-num { font-family: var(--serif); font-size: 0.85rem; color: var(--gold); font-style: italic; }
+    .sec-title { font-family: var(--serif); font-size: clamp(1.9rem, 4vw, 2.9rem); font-weight: 300; color: var(--ink); }
+    .sec-rule { flex: 1; height: 1px; background: var(--rule); }
+
+    /* ── IDENTITY SPLIT ── */
+    .id-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 4rem; }
+    .id-col { padding: 2.25rem; }
+    .id-col.pro { background: var(--paper); }
+    .id-col.ind { background: var(--paper-warm); }
+    .id-col-lbl { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule); }
+    .id-col.pro .id-col-lbl { color: var(--ink-soft); }
+    .id-col.ind .id-col-lbl { color: var(--gold); }
+    .id-col h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; color: var(--ink); margin-bottom: 0.35rem; line-height: 1.3; }
+    .id-role { font-size: 0.83rem; color: var(--ink-soft); margin-bottom: 1.1rem; }
+    .id-col p { font-size: 0.87rem; color: var(--ink-mid); line-height: 1.65; margin-bottom: 0.8rem; }
+    .id-col p:last-of-type { margin-bottom: 0; }
+    .tag { display: inline-block; font-size: 0.62rem; letter-spacing: 0.09em; text-transform: uppercase; padding: 0.2rem 0.55rem; border: 1px solid var(--rule); color: var(--ink-soft); margin: 0.2rem 0.15rem 0 0; }
+    .tag.g { border-color: var(--gold); color: var(--gold); }
+
+    /* CIPP/E block */
+    .cippe { margin-top: 1.1rem; border: 1.5px solid var(--teal); padding: 1rem 1.2rem; background: var(--teal-bg); display: flex; align-items: flex-start; gap: 0.85rem; }
+    .cippe-icon { width: 38px; height: 38px; flex-shrink: 0; background: var(--teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.55rem; font-weight: 700; letter-spacing: 0.03em; text-align: center; line-height: 1.2; }
+    .cippe-t { font-size: 0.77rem; font-weight: 500; color: var(--ink); }
+    .cippe-s { font-size: 0.7rem; color: var(--ink-soft); margin-top: 0.1rem; }
+    .cippe-m { font-size: 0.67rem; color: var(--ink-soft); margin-top: 0.3rem; }
+
+    /* About grid */
+    .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+    .meta dt { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.2rem; margin-top: 1.3rem; }
+    .meta dt:first-child { margin-top: 0; }
+    .meta dd { font-size: 0.92rem; color: var(--ink); }
+    .meta a { color: var(--gold); text-decoration: none; }
+
+    /* Awards */
+    .awards { margin-top: 2.25rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+    .award { background: var(--paper); padding: 1.1rem 1.3rem; }
+    .award-yr { font-family: var(--serif); font-size: 0.78rem; color: var(--gold); font-style: italic; margin-bottom: 0.2rem; }
+    .award-nm { font-size: 0.85rem; font-weight: 500; color: var(--ink); line-height: 1.35; }
+    .award-og { font-size: 0.75rem; color: var(--ink-mid); margin-top: 0.15rem; }
+
+    /* Bio */
+    .bio p { font-family: var(--serif); font-size: clamp(1.05rem, 1.7vw, 1.25rem); font-weight: 400; line-height: 1.75; color: var(--ink); margin-bottom: 1.2rem; }
+    .bio p:last-child { margin-bottom: 0; }
+
+    /* Timeline */
+    .timeline { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: 2rem; }
+    .tl-item { display: grid; grid-template-columns: 155px 1fr; gap: 1.5rem; padding: 1.1rem 0; border-bottom: 1px solid var(--rule); }
+    .tl-yr { font-family: var(--serif); font-size: 0.8rem; color: var(--ink-soft); font-style: italic; line-height: 1.4; }
+    .tl-role { font-size: 0.92rem; font-weight: 500; color: var(--ink); }
+    .tl-org { font-size: 0.82rem; color: var(--ink-mid); margin-top: 0.1rem; }
+
+    /* ── WORK ── */
+    #work { background: var(--paper-warm); }
+    .work-divider { display: flex; align-items: center; gap: 1.5rem; margin: 3.5rem 0 1.5rem; }
+    .work-divider:first-of-type { margin-top: 0; }
+    .wd-lbl { font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; white-space: nowrap; }
+    .wd-lbl.pro { color: var(--ink-soft); }
+    .wd-lbl.ind { color: var(--gold); }
+    .wd-rule { flex: 1; height: 1px; background: var(--rule); }
+    .wd-note { font-size: 0.7rem; color: var(--ink-soft); font-style: italic; white-space: nowrap; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+    .card { padding: 2.2rem; display: flex; flex-direction: column; gap: 0.85rem; text-decoration: none; color: inherit; transition: background 0.2s; }
+    .card.pro-card { background: #f0efe9; cursor: default; }
+    .card.ind-card { background: var(--paper-warm); }
+    .card.ind-card:hover { background: var(--paper); }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; }
+    .card-type { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 2px; font-weight: 500; flex-shrink: 0; }
+    .card-type.ind { color: var(--gold); background: var(--gold-bg); }
+    .card-type.pro { color: var(--ink-soft); background: rgba(0,0,0,0.05); }
+    .card-yr { font-family: var(--serif); font-size: 0.82rem; color: var(--ink-soft); font-style: italic; }
+    .card-title { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; line-height: 1.3; color: var(--ink); }
+    .card-desc { font-size: 0.86rem; color: var(--ink-mid); line-height: 1.65; flex: 1; }
+    .card-link { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 0.5rem; transition: gap 0.2s; font-weight: 500; }
+    .card.ind-card:hover .card-link { gap: 0.85rem; }
+    .card-link::after { content: '→'; }
+
+    /* Pubs */
+    .pubs { display: flex; flex-direction: column; }
+    .pub { display: grid; grid-template-columns: 68px 1fr auto; gap: 2rem; align-items: baseline; padding: 1.15rem 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: inherit; transition: padding-left 0.2s; }
+    .pub:hover { padding-left: 0.75rem; }
+    .pub:hover .pub-title { color: var(--gold); }
+    .pub-yr { font-family: var(--serif); font-size: 0.83rem; color: var(--ink-soft); font-style: italic; }
+    .pub-title { font-family: var(--serif); font-size: 0.97rem; line-height: 1.4; transition: color 0.2s; color: var(--ink); }
+    .pub-venue { font-size: 0.73rem; color: var(--ink-soft); white-space: nowrap; }
+
+    /* Media */
+    .sub-lbl { font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; font-weight: 500; }
+    .mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+    .mi { background: var(--paper-warm); padding: 1.15rem 1.4rem; font-size: 0.84rem; color: var(--ink-mid); text-decoration: none; display: block; position: relative; transition: background 0.2s; }
+    .mi:hover { background: var(--paper); color: var(--ink); }
+    .mi:hover .mo { color: var(--gold); }
+    .mi:hover .ma { opacity: 1; }
+    .mo { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.3rem; transition: color 0.2s; font-weight: 500; }
+    .ma { position: absolute; top: 1rem; right: 1rem; font-size: 0.8rem; color: var(--gold); opacity: 0; transition: opacity 0.2s; }
+
+    /* Featured talks */
+    .featured-primary { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2.5rem; align-items: center; background: var(--paper-warm); border: 1px solid var(--rule); padding: 2rem; margin-bottom: 1px; }
+    .vid-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+    .vid-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    .talk-lbl { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; font-weight: 500; }
+    .talk-title { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; line-height: 1.25; color: var(--ink); margin-bottom: 0.85rem; }
+    .talk-desc { font-size: 0.86rem; color: var(--ink-mid); line-height: 1.65; }
+    .talk-link { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.2rem; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: gap 0.2s; font-weight: 500; }
+    .talk-link:hover { gap: 0.85rem; }
+    .secondary-talks { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 3rem; }
+    .sec-talk { background: var(--paper-warm); padding: 1.75rem; display: flex; flex-direction: column; gap: 1rem; }
+    .sec-talk-lbl { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+    .sec-talk-title { font-family: var(--serif); font-size: 1.02rem; font-weight: 400; color: var(--ink); line-height: 1.3; }
+    .sec-talk-desc { font-size: 0.81rem; color: var(--ink-mid); line-height: 1.55; flex: 1; }
+    .sec-talk-link { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 500; transition: gap 0.2s; }
+    .sec-talk-link:hover { gap: 0.7rem; }
+
+    /* YT channel row */
+    .yt-row { display: flex; align-items: center; gap: 1.5rem; background: var(--paper-warm); border: 1px solid var(--rule); padding: 1.4rem; margin-bottom: 1px; text-decoration: none; color: inherit; transition: background 0.2s; }
+    .yt-row:hover { background: var(--paper); }
+    .yt-icon { width: 44px; height: 44px; background: #FF0000; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .yt-body { flex: 1; }
+    .yt-lbl { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.2rem; }
+    .yt-name { font-family: var(--serif); font-size: 1rem; color: var(--ink); margin-bottom: 0.2rem; }
+    .yt-desc { font-size: 0.81rem; color: var(--ink-mid); }
+    .yt-cta { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); font-weight: 500; white-space: nowrap; }
+
+    /* ── SKILLS ── */
+    .skills-note { font-size: 0.87rem; color: var(--ink-mid); line-height: 1.65; max-width: 680px; margin-bottom: 3rem; }
+    .sgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 3rem; }
+    .sg h3 { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--rule); font-weight: 500; }
+    .si {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--rule);
+      font-size: 0.86rem;
+      color: var(--ink-mid);
+    }
+    .si::before { content: '—'; color: var(--gold); margin-right: 0.6rem; font-size: 0.7rem; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--ink); }
+    #contact .sec-title { color: var(--paper); }
+    #contact .sec-rule { background: rgba(245,244,240,0.12); }
+    #contact .sec-num { color: var(--gold-lt); }
+    .contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: start; }
+    .contact-msg { font-family: var(--serif); font-size: clamp(1.3rem, 3vw, 1.85rem); font-weight: 300; line-height: 1.55; color: var(--paper); }
+    .contact-note { margin-top: 1.25rem; font-size: 0.77rem; color: rgba(245,244,240,0.4); line-height: 1.6; font-style: italic; }
+    .clinks { display: flex; flex-direction: column; }
+    .cl { display: flex; justify-content: space-between; align-items: center; padding: 1.15rem 0; border-bottom: 1px solid rgba(245,244,240,0.12); text-decoration: none; color: #ece8df; font-size: 0.88rem; transition: color 0.2s; }
+    .cl:hover { color: var(--gold-lt); }
+    .cl span { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,244,240,0.38); }
+
+    footer { background: var(--ink); border-top: 1px solid rgba(245,244,240,0.07); padding: 1.75rem 5vw; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    footer p { font-size: 0.72rem; color: rgba(245,244,240,0.3); letter-spacing: 0.04em; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .id-split, .about-grid, .contact-grid, .featured-primary, .secondary-talks { grid-template-columns: 1fr; gap: 2rem; }
+      .three-vids { grid-template-columns: 1fr !important; }
+      .hero::before { display: none; }
+      .tl-item { grid-template-columns: 1fr; gap: 0.2rem; }
+      .pub { grid-template-columns: 55px 1fr; }
+      .pub-venue { display: none; }
+      .nav-links { display: none; }
+      .awards { grid-template-columns: 1fr; }
+      .hero-pillars { flex-direction: column; gap: 1rem; }
+      .yt-cta { display: none; }
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .anim {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.7s cubic-bezier(0.22,1,0.36,1);
+    }
+    .anim.in {
+      opacity: 1;
+      transform: none;
+    }
+    .anim-delay-1 { transition-delay: 0.1s; }
+    .anim-delay-2 { transition-delay: 0.2s; }
+    .anim-delay-3 { transition-delay: 0.3s; }
+    .anim-delay-4 { transition-delay: 0.4s; }
+
+    /* Nav active indicator */
+    .nav-links a { position: relative; }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1px; background: var(--gold);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* Smooth section transitions */
+    section { transition: none; }
+
+    /* Card hover lift */
+    .card.ind-card {
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .card.ind-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+    }
+
+    /* Timeline item hover */
+    .tl-item {
+      transition: padding-left 0.2s;
+    }
+    .tl-item:hover { padding-left: 0.5rem; }
+
+    /* Smooth image/video hover */
+    .sec-talk { transition: background 0.25s; }
+    .sec-talk:hover { background: var(--paper); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-name">Mamta Siwakoti</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="disclaimer" style="margin-top:3.9rem;">
+    <strong>Note:</strong> All independent writings, thought leadership, and personal work on this site represent my own views and do not reflect the positions or policies of my employer.
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;">
+    <div class="hero-label" style="animation:fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s both;">Law · Privacy · Digital Governance · Policy</div>
+    <h1 style="animation:fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.25s both;">Mamta<br><em>Siwakoti</em></h1>
+    <p class="hero-sub" style="animation:fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.4s both;">Advocate and privacy professional with expertise spanning digital governance, legal literacy, and policy — working at the intersection of law, technology, and public interest across the Asia-Pacific.</p>
+    <div class="hero-pillars" style="animation:fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.55s both;">
+      <div class="pillar">
+        <span class="pillar-label">Practitioner</span>
+        <span class="pillar-desc">Programme management · Trust & Safety · APAC</span>
+      </div>
+      <div class="pillar">
+        <span class="pillar-label">Privacy Professional</span>
+        <span class="pillar-desc">CIPP/E · Data protection · Digital rights</span>
+      </div>
+      <div class="pillar">
+        <span class="pillar-label">Advocate & Scholar</span>
+        <span class="pillar-desc">TEDx · Publications · Legal literacy</span>
+      </div>
+    </div>
+    <div class="hero-cert" style="animation:fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.7s both;">
+      <span class="cert-badge">✦ &nbsp;CIPP/E — Certified Information Privacy Professional/Europe · IAPP</span>
+    </div>
+    <div class="hero-scroll" style="animation:fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.85s both;">Scroll to explore</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="sec-head anim">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">About</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <div class="id-split anim anim-delay-1">
+      <div class="id-col pro">
+        <div class="id-col-lbl">Professional Role</div>
+        <h3>Market Programme Manager, Trust & Safety</h3>
+        <div class="id-role">TikTok · Kuala Lumpur, Malaysia · Apr 2024 – Present</div>
+        <p>I lead cross-functional programme management for Trust & Safety initiatives across multiple APAC markets — coordinating between global Policy, Legal, Product, and Operations teams to deploy integrity and safety programmes at scale.</p>
+        <p>My work spans stakeholder management, risk mitigation frameworks, and translating complex policy and legal requirements into operational solutions for a major technology platform.</p>
+        <div style="margin-top:1rem;">
+          <span class="tag">Programme Management</span>
+          <span class="tag">Stakeholder Coordination</span>
+          <span class="tag">Cross-Functional Leadership</span>
+          <span class="tag">APAC Markets</span>
+          <span class="tag">Trust & Safety</span>
+          <span class="tag">Policy Implementation</span>
+        </div>
+      </div>
+      <div class="id-col ind">
+        <div class="id-col-lbl">Independent Practice — Personal</div>
+        <h3>Privacy Professional, Advocate & Scholar</h3>
+        <div class="id-role">All views and work are personal and independent</div>
+        <p>Independently, I am a CIPP/E certified privacy professional with deep interest in data protection law, digital rights, and the governance of emerging technology. I pursue academic writing, thought leadership, and advisory work in these areas.</p>
+        <p>I am also a qualified advocate (BALLB) and founder of <em>The Digital Lawyer</em> — a legal literacy initiative that reached 106,000+ followers — and a TEDx speaker on AI and law.</p>
+        <div class="cippe">
+          <div class="cippe-icon">CIPP<br>E</div>
+          <div>
+            <div class="cippe-t">Certified Information Privacy Professional/Europe</div>
+            <div class="cippe-s">International Association of Privacy Professionals (IAPP)</div>
+            <div class="cippe-m">No. 000822430I &nbsp;·&nbsp; Effective Feb 27, 2026 &nbsp;·&nbsp; Expires Feb 29, 2028</div>
+          </div>
+        </div>
+        <div style="margin-top:1rem;">
+          <span class="tag g">Privacy Law (CIPP/E)</span>
+          <span class="tag g">Digital Rights</span>
+          <span class="tag g">Thought Leadership</span>
+          <span class="tag g">Legal Literacy</span>
+          <span class="tag g">Academic Writing</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-grid">
+      <div>
+        <dl class="meta">
+          <dt>Current Employer</dt>
+          <dd>TikTok, Kuala Lumpur, Malaysia</dd>
+          <dt>Current Role</dt>
+          <dd>Market Programme Manager, Trust & Safety</dd>
+          <dt>Certification</dt>
+          <dd>CIPP/E — Certified Information Privacy Professional/Europe (IAPP)</dd>
+          <dt>Education</dt>
+          <dd>M.A. International Relations & Diplomacy, Tribhuvan University<br>BALLB, Kathmandu School of Law</dd>
+          <dt>Location</dt>
+          <dd>Kuala Lumpur, Malaysia</dd>
+          <dt>LinkedIn</dt>
+          <dd><a href="https://www.linkedin.com/in/msiwakoti2" target="_blank">linkedin.com/in/msiwakoti2</a></dd>
+        </dl>
+
+        <div style="margin-top:2.25rem;">
+          <h3 style="font-size:0.66rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:500;">Awards</h3>
+          <div class="awards">
+            <div class="award"><div class="award-yr">2023</div><div class="award-nm">Women Achievement Award</div><div class="award-og">WOW Magazine</div></div>
+            <div class="award"><div class="award-yr">2021</div><div class="award-nm">Jyoti Bidhusi Award for Academic Excellence</div><div class="award-og">Nepal Bar Association</div></div>
+            <div class="award"><div class="award-yr">2017</div><div class="award-nm">National Champion & Best Orator</div><div class="award-og">Philip C. Jessup Moot, Washington DC</div></div>
+            <div class="award"><div class="award-yr">2017</div><div class="award-nm">National Champion & Best Orator</div><div class="award-og">Henry Dunant Moot Court</div></div>
+          </div>
+          <h3 style="font-size:0.66rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;margin-top:2rem;font-weight:500;">Fellowships & Engagements</h3>
+          <div class="awards">
+            <div class="award"><div class="award-yr">2023</div><div class="award-nm">Fellow & Panel Moderator</div><div class="award-og">Asia-Pacific Regional Internet Governance Forum</div></div>
+            <div class="award"><div class="award-yr">2022–23</div><div class="award-nm">Member, US Youth Council (USYC)</div><div class="award-og">Project Sachet & Project Legal Literacy</div></div>
+            <div class="award"><div class="award-yr">2022</div><div class="award-nm">UMSS Exchange — Dept. of IR & Diplomacy Representative</div><div class="award-og">US Consulate General Kolkata & East-West Center</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="bio">
+          <p>I am a law graduate and qualified advocate with a Master's in International Relations and Diplomacy, working at the intersection of law, technology, and public policy across the Asia-Pacific region.</p>
+          <p>Professionally, I manage complex cross-functional programmes in the Trust & Safety space — coordinating stakeholders across Policy, Legal, Product, and Operations teams at a major technology platform. This role has given me deep operational insight into how digital governance frameworks are built and deployed at scale.</p>
+          <p>Independently, I am a Certified Information Privacy Professional (CIPP/E) with a strong academic interest in data protection law, digital rights, and privacy governance. I write, speak, and advocate on these issues in a personal capacity — as the founder of <em>The Digital Lawyer</em>, as a TEDx speaker, and as a published author.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-yr">Apr 2024 – Present</div>
+            <div><div class="tl-role">Market Programme Manager, Trust & Safety</div><div class="tl-org">TikTok · Kuala Lumpur, Malaysia</div></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-yr">Feb 2022 – Mar 2024</div>
+            <div><div class="tl-role">Executive Director & Founder</div><div class="tl-org">Digital Law & Policy Centre · Kathmandu, Nepal</div></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-yr">Aug 2021 – Feb 2022</div>
+            <div><div class="tl-role">Gender Intern – Professional</div><div class="tl-org">UNICEF Regional Office of South Asia · Kathmandu</div></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-yr">Jul 2019 – Feb 2020</div>
+            <div><div class="tl-role">Program Officer – Legal</div><div class="tl-org">Swatantrata Abhiyan Nepal · Lalitpur</div></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-yr">Mar 2018 – Jul 2019</div>
+            <div><div class="tl-role">Research Assistant</div><div class="tl-org">Kathmandu School of Law · Bhaktapur</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="sec-head anim">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">Work & Projects</h2>
+      <div class="sec-rule"></div>
+    </div>
+
+    <div class="work-divider">
+      <span class="wd-lbl pro">Professional Experience</span>
+      <div class="wd-rule"></div>
+      <span class="wd-note">Employer-related work</span>
+    </div>
+    <div class="cards">
+      <div class="card pro-card">
+        <div class="card-top"><span class="card-type pro">Programme Management · TikTok</span><span class="card-yr">2024–Present</span></div>
+        <h3 class="card-title">Cross-Market Trust & Safety Programmes, APAC</h3>
+        <p class="card-desc">Leading full-cycle programme deployment across multiple APAC markets — managing stakeholder coordination across global Policy, Legal, Product, and Operations teams to ensure robust delivery of integrity and safety initiatives. Specialised in translating policy requirements into scalable operational frameworks.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.25rem;">
+          <span class="tag" style="font-size:0.6rem;">Programme Management</span>
+          <span class="tag" style="font-size:0.6rem;">Stakeholder Management</span>
+          <span class="tag" style="font-size:0.6rem;">Cross-Functional Leadership</span>
+          <span class="tag" style="font-size:0.6rem;">Risk Mitigation</span>
+        </div>
+      </div>
+      <div class="card pro-card">
+        <div class="card-top"><span class="card-type pro">Policy · UNICEF</span><span class="card-yr">2021–2022</span></div>
+        <h3 class="card-title">Gender & Policy Research, South Asia</h3>
+        <p class="card-desc">Produced high-level gender reports and policy snapshots across UNICEF's South Asia regional office (ROSA). Designed monitoring and evaluation frameworks for regional policy webinars and created digital advocacy campaigns on women's rights.</p>
+      </div>
+      <div class="card pro-card">
+        <div class="card-top"><span class="card-type pro">Policy</span><span class="card-yr">2019–2020</span></div>
+        <h3 class="card-title">Nepal UPR Report — Child & Labour Rights</h3>
+        <p class="card-desc">Contributed to Nepal's Universal Periodic Review report on rights of the girl child and labour rights. Organised multi-level policy advocacy workshops and state-level parliamentary programs on child protection.</p>
+      </div>
+    </div>
+
+    <div class="work-divider">
+      <span class="wd-lbl ind">Independent Work</span>
+      <div class="wd-rule"></div>
+      <span class="wd-note">Personal capacity — views are my own</span>
+    </div>
+    <div class="cards">
+      <a class="card ind-card" href="https://www.onlinekhabar.com/2026/03/1895220/my-privacy-in-the-balen-government-how-safe-is-my-personal-information" target="_blank" rel="noopener">
+        <div class="card-top"><span class="card-type ind">Privacy · Thought Leadership</span><span class="card-yr">2026</span></div>
+        <h3 class="card-title">Privacy in the Balen Government</h3>
+        <p class="card-desc">Independent analysis examining personal data protection under Kathmandu's municipal government — exploring data protection gaps, citizens' rights, and the state of privacy law in Nepal.</p>
+        <span class="card-link">Read article</span>
+      </a>
+      <a class="card ind-card" href="#">
+        <div class="card-top"><span class="card-type ind">Legal Literacy · Advocacy</span><span class="card-yr">2020–2024</span></div>
+        <h3 class="card-title">The Digital Lawyer — 106K+ Reach</h3>
+        <p class="card-desc">Founded a digital legal literacy platform communicating law through social media — reaching over 106,000 organic followers. Partnered independently with IFES and USAID on election integrity education.</p>
+        <span class="card-link">Learn more</span>
+      </a>
+      <a class="card ind-card" href="https://youtu.be/QIxQgassZPo?si=1qE7JR1ld_02u3Gr" target="_blank" rel="noopener">
+        <div class="card-top"><span class="card-type ind">TEDx · Speaking</span><span class="card-yr">2023</span></div>
+        <h3 class="card-title">TEDx Talk: AI and Law</h3>
+        <p class="card-desc">Delivered a TEDx Talk on the policy implications of AI in legal technology — positioning the intersection of law, digital rights, and emerging technology for a broad public audience.</p>
+        <span class="card-link">Watch talk</span>
+      </a>
+      <a class="card ind-card" href="https://www.youtube.com/watch?v=SdjDa2SP1gs" target="_blank" rel="noopener">
+        <div class="card-top"><span class="card-type ind">Internet Governance · APrIGF</span><span class="card-yr">2023</span></div>
+        <h3 class="card-title">Panel Moderator — AI in Asia Pacific: Responsible Innovation</h3>
+        <p class="card-desc">Selected as APrIGF Fellow and moderated an expert panel convening five leading internet governance experts at the Asia-Pacific Regional Internet Governance Forum.</p>
+        <span class="card-link">Watch panel</span>
+      </a>
+      <a class="card ind-card" href="#">
+        <div class="card-top"><span class="card-type ind">Youth · Civic Engagement</span><span class="card-yr">2022–2023</span></div>
+        <h3 class="card-title">US Youth Council — Project Sachet & Legal Literacy</h3>
+        <p class="card-desc">Selected as USYC member. Led Project Sachet strengthening democracy against misinformation, and Project Legal Literacy engaging students across Province 4 and 5 of Nepal.</p>
+        <span class="card-link">Learn more</span>
+      </a>
+    </div>
+
+    <!-- Publications -->
+    <div style="margin-top:5rem;">
+      <h3 style="font-family:var(--serif);font-size:1.25rem;font-weight:300;margin-bottom:0.4rem;color:var(--ink);">Publications & Thought Leadership</h3>
+      <p style="font-size:0.78rem;color:var(--ink-soft);margin-bottom:1.6rem;font-style:italic;">All publications are independent, personal work and do not represent my employer.</p>
+      <div class="pubs">
+        <a class="pub" href="https://www.onlinekhabar.com/2026/03/1895220/my-privacy-in-the-balen-government-how-safe-is-my-personal-information" target="_blank" rel="noopener">
+          <span class="pub-yr">2026</span>
+          <span class="pub-title">Privacy in the Balen Government — How Safe is My Personal Information?</span>
+          <span class="pub-venue">Online Khabar</span>
+        </a>
+        <a class="pub" href="#">
+          <span class="pub-yr">2019</span>
+          <span class="pub-title">On the Road to Racial Equality — Baral, A., & Siwakoti, M.</span>
+          <span class="pub-venue">FIMT Law Journal</span>
+        </a>
+        <a class="pub" href="#">
+          <span class="pub-yr">2018</span>
+          <span class="pub-title">Culture in Nepal: An Exploration of the Legacy and its Way Forward — Siwakoti, M., & Adhikari, S.</span>
+          <span class="pub-venue">KSL Review, 6(2)</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Media -->
+    <div style="margin-top:5rem;">
+      <h3 style="font-family:var(--serif);font-size:1.25rem;font-weight:300;margin-bottom:0.4rem;color:var(--ink);">Media Coverage & Features</h3>
+      <p style="font-size:0.78rem;color:var(--ink-soft);margin-bottom:3rem;font-style:italic;">All media appearances and features are personal and independent.</p>
+
+      <span class="sub-lbl">Featured Talk</span>
+      <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:2.5rem;align-items:center;background:var(--paper-warm);border:1px solid var(--rule);padding:2rem;margin-bottom:1.5rem;">
+        <div class="vid-wrap">
+          <iframe src="https://www.youtube.com/embed/QIxQgassZPo" title="AI in Legal Tech — TEDxKathmanduUniversity" allowfullscreen></iframe>
+        </div>
+        <div>
+          <div class="sec-talk-lbl">TEDx Kathmandu University · 2023 · Independent</div>
+          <div class="sec-talk-title" style="font-size:1.3rem;margin-bottom:0.75rem;">Artificial Intelligence in Legal Tech — Empowering Access to Rights and Justice</div>
+          <div class="sec-talk-desc">A TEDx talk exploring AI's transformative potential in expanding access to legal knowledge and justice — what it means for governance, rights, and the future of law.</div>
+          <a class="sec-talk-link" style="margin-top:1.2rem;display:inline-flex;" href="https://youtu.be/QIxQgassZPo?si=1qE7JR1ld_02u3Gr" target="_blank" rel="noopener">Watch on YouTube →</a>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:3rem;">
+        <a href="https://www.youtube.com/watch?v=X7LcTrNSkXI&t=144s" target="_blank" rel="noopener" style="background:var(--paper-warm);padding:1.5rem;display:flex;align-items:flex-start;gap:1rem;text-decoration:none;color:inherit;transition:background 0.2s;" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='var(--paper-warm)'">
+          <div style="flex-shrink:0;width:36px;height:36px;background:#FF0000;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:2px;"><svg width="14" height="10" viewBox="0 0 20 14" fill="white"><path d="M19.6 2.2C19.4 1.4 18.8.8 18 .6 16.4.2 10 .2 10 .2S3.6.2 2 .6C1.2.8.6 1.4.4 2.2 0 3.8 0 7 0 7s0 3.2.4 4.8c.2.8.8 1.4 1.6 1.6C3.6 13.8 10 13.8 10 13.8s6.4 0 8-.4c.8-.2 1.4-.8 1.6-1.6C20 10.2 20 7 20 7s0-3.2-.4-4.8zM8 10V4l5.3 3L8 10z"/></svg></div>
+          <div>
+            <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:0.3rem;">StoryYeller · Personal Feature</div>
+            <div style="font-family:var(--serif);font-size:1rem;color:var(--ink);margin-bottom:0.3rem;line-height:1.3;">Sharing My Story — StoryYeller Feature</div>
+            <div style="font-size:0.8rem;color:var(--ink-soft);">A personal conversation on the journey behind The Digital Lawyer.</div>
+          </div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=wn-DJX89mNk" target="_blank" rel="noopener" style="background:var(--paper-warm);padding:1.5rem;display:flex;align-items:flex-start;gap:1rem;text-decoration:none;color:inherit;transition:background 0.2s;" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='var(--paper-warm)'">
+          <div style="flex-shrink:0;width:36px;height:36px;background:#FF0000;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:2px;"><svg width="14" height="10" viewBox="0 0 20 14" fill="white"><path d="M19.6 2.2C19.4 1.4 18.8.8 18 .6 16.4.2 10 .2 10 .2S3.6.2 2 .6C1.2.8.6 1.4.4 2.2 0 3.8 0 7 0 7s0 3.2.4 4.8c.2.8.8 1.4 1.6 1.6C3.6 13.8 10 13.8 10 13.8s6.4 0 8-.4c.8-.2 1.4-.8 1.6-1.6C20 10.2 20 7 20 7s0-3.2-.4-4.8zM8 10V4l5.3 3L8 10z"/></svg></div>
+          <div>
+            <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:0.3rem;">Setopati · Video Interview</div>
+            <div style="font-family:var(--serif);font-size:1rem;color:var(--ink);margin-bottom:0.3rem;line-height:1.3;">Video Interview on Legal Process</div>
+            <div style="font-size:0.8rem;color:var(--ink-soft);">Interview with national digital daily Setopati on digital law in Nepal.</div>
+          </div>
+        </a>
+      </div>
+
+      <span class="sub-lbl">Print & Online</span>
+      <div class="mgrid" style="margin-bottom:2.5rem;">
+        <a class="mi" href="https://kathmandupost.com/art-culture/2020/11/12/who-said-tiktok-is-only-about-dancing-and-singing" target="_blank" rel="noopener"><div class="mo">Kathmandu Post</div>TikTok and Legal Awareness<div class="ma">↗</div></a>
+        <a class="mi" href="https://kathmandupost.com/books/2024/02/08/random-online-browsing-no-substitute-for-reading-books" target="_blank" rel="noopener"><div class="mo">Kathmandu Post</div>Random Online Browsing No Substitute for Reading<div class="ma">↗</div></a>
+        <a class="mi" href="https://nepalitimes.com/here-now/huge-uptick-in-tiktok-during-nepal-lockdown1" target="_blank" rel="noopener"><div class="mo">Nepali Times</div>Huge Uptick in TikTok During Lockdown<div class="ma">↗</div></a>
+        <a class="mi" href="https://myrepublica.nagariknetwork.com/news/the-digital-lawyer-shows-how-tiktok-can-be-used-for-good/?categoryId=blog" target="_blank" rel="noopener"><div class="mo">My Republica</div>The Digital Lawyer — TikTok for Good<div class="ma">↗</div></a>
+        <a class="mi" href="https://wownepal.com.np/100-women-of-impact/" target="_blank" rel="noopener"><div class="mo">WOW Nepal</div>100 Women of Impact<div class="ma">↗</div></a>
+        <a class="mi" href="https://theannapurnaexpress.com/story/20039/" target="_blank" rel="noopener"><div class="mo">Annapurna Express</div>The Digital Lawyer of the TikTok Era<div class="ma">↗</div></a>
+        <a class="mi" href="https://www.b360nepal.com/detail/6224/when-technology-meets-law" target="_blank" rel="noopener"><div class="mo">Business 360</div>When Technology Meets Law<div class="ma">↗</div></a>
+        <a class="mi" href="https://www.b360nepal.com/detail/726/lifetime-achievement-award-conferred-on-bhinda-swari-shah" target="_blank" rel="noopener"><div class="mo">Business 360</div>Women to Watch Award Coverage<div class="ma">↗</div></a>
+        <a class="mi" href="https://www.onlinekhabar.com/2026/03/1895220/my-privacy-in-the-balen-government-how-safe-is-my-personal-information" target="_blank" rel="noopener"><div class="mo">Online Khabar</div>Privacy in the Balen Government<div class="ma">↗</div></a>
+      </div>
+
+      <span class="sub-lbl">Video & Podcasts</span>
+      <a class="yt-row" href="https://www.youtube.com/@Lawwithmamta" target="_blank" rel="noopener">
+        <div class="yt-icon">
+          <svg width="18" height="13" viewBox="0 0 20 14" fill="white"><path d="M19.6 2.2C19.4 1.4 18.8.8 18 .6 16.4.2 10 .2 10 .2S3.6.2 2 .6C1.2.8.6 1.4.4 2.2 0 3.8 0 7 0 7s0 3.2.4 4.8c.2.8.8 1.4 1.6 1.6C3.6 13.8 10 13.8 10 13.8s6.4 0 8-.4c.8-.2 1.4-.8 1.6-1.6C20 10.2 20 7 20 7s0-3.2-.4-4.8zM8 10V4l5.3 3L8 10z"/></svg>
+        </div>
+        <div class="yt-body">
+          <div class="yt-lbl">YouTube Channel · Independent</div>
+          <div class="yt-name">@Lawwithmamta — Constitutional Law & Legal Commentary</div>
+          <div class="yt-desc">Original video content on constitutional interpretation, digital rights, and legal literacy in Nepal — produced independently.</div>
+        </div>
+        <div class="yt-cta">Visit Channel →</div>
+      </a>
+      <div class="mgrid" style="margin-top:1px;">
+        <a class="mi" href="https://www.youtube.com/watch?v=_TgIQXHFeq4" target="_blank" rel="noopener"><div class="mo">Prime Television</div>Interview on Digital Lawyering<div class="ma">↗</div></a>
+        <a class="mi" href="https://www.youtube.com/watch?v=0iTI27bLcws" target="_blank" rel="noopener"><div class="mo">WOW Magazine</div>Women to Watch — Short Feature<div class="ma">↗</div></a>
+        <a class="mi" href="https://youtu.be/CHNcCN9vZng?si=bwrGSxTMYliN391b" target="_blank" rel="noopener"><div class="mo">On Air with Sanjay · Ep. 112</div>The Lawyers Return!<div class="ma">↗</div></a>
+        <a class="mi" href="https://www.youtube.com/watch?v=NPGZ1ru4eZQ&t=1351s" target="_blank" rel="noopener"><div class="mo">On Air with Sanjay · Ep. 039</div>The Digital Lawyer & Random Nepali<div class="ma">↗</div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-head anim">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">Skills & Expertise</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <p class="skills-note anim anim-delay-1">A practice spanning legal expertise, privacy certification, programme delivery, and public communication — across both professional and independent contexts.</p>
+    <div class="sgrid">
+      <div class="sg anim anim-delay-1">
+        <h3>Privacy & Law</h3>
+        <div class="si">Privacy Law — CIPP/E Certified</div>
+        <div class="si">Data Protection & GDPR</div>
+        <div class="si">Digital Rights & Governance</div>
+        <div class="si">Legal Research & Writing</div>
+        <div class="si">Constitutional Law</div>
+      </div>
+      <div class="sg anim anim-delay-2">
+        <h3>Programme Management</h3>
+        <div class="si">Cross-Functional Programme Delivery</div>
+        <div class="si">Stakeholder Engagement & Management</div>
+        <div class="si">Risk Mitigation Frameworks</div>
+        <div class="si">Policy Implementation at Scale</div>
+        <div class="si">Electoral Integrity Operations</div>
+      </div>
+      <div class="sg anim anim-delay-3">
+        <h3>Policy & Governance</h3>
+        <div class="si">Digital Governance Frameworks</div>
+        <div class="si">Regulatory Analysis</div>
+        <div class="si">International Relations & Diplomacy</div>
+        <div class="si">Human Rights Advocacy</div>
+        <div class="si">Internet Governance (IGF/APrIGF)</div>
+      </div>
+      <div class="sg anim anim-delay-4">
+        <h3>Communication</h3>
+        <div class="si">Thought Leadership & Academic Writing</div>
+        <div class="si">Public Speaking — TEDx</div>
+        <div class="si">Legal Literacy & Public Advocacy</div>
+        <div class="si">Media & Broadcast</div>
+        <div class="si">Digital Content Creation</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="background:var(--dark);">
+    <div class="sec-head anim">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">Contact</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-msg">Open to independent speaking engagements, academic collaborations, privacy advisory conversations, and media enquiries.</p>
+        <p class="contact-note">All independent engagements are in a personal capacity and do not represent my employer.</p>
+      </div>
+      <div class="clinks">
+        <a class="cl" href="mailto:mamta.siwakoti013@gmail.com">mamta.siwakoti013@gmail.com <span>Email</span></a>
+        <a class="cl" href="https://www.linkedin.com/in/msiwakoti2" target="_blank" rel="noopener">linkedin.com/in/msiwakoti2 <span>LinkedIn</span></a>
+        <a class="cl" href="https://www.tiktok.com/@lawwithmamta" target="_blank" rel="noopener">@lawwithmamta <span>TikTok</span></a>
+        <a class="cl" href="https://www.youtube.com/@Lawwithmamta" target="_blank" rel="noopener">@Lawwithmamta <span>YouTube</span></a>
+        <div class="cl" style="cursor:default;">CIPP/E — Certified Information Privacy Professional/Europe <span>IAPP</span></div>
+        <a class="cl" href="#">Download CV (PDF) <span>Curriculum Vitae</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Mamta Siwakoti. All rights reserved.</p>
+    <p>Views expressed are personal and do not reflect any employer.</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.sbar-fill').forEach((bar, i) => {
+            setTimeout(() => bar.classList.add('in'), i * 100);
+          });
+          barObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.sg').forEach(el => barObserver.observe(el));
+  </script>
+</body>
+</html>
